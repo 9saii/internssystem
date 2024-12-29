@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React</title>
+    <style>
+      /* General container styling */
+.dashboard-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Title styling */
+.dashboard-title {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  color: #1f2937;
+  margin-bottom: 2rem;
+}
+
+/* List styling */
+.internship-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.internship-list-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem;
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s ease;
+}
+
+.internship-list-item:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Internship details */
+.internship-details {
+  margin-bottom: 1rem;
+}
+
+.internship-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #4b5563;
+}
+
+.internship-email {
+  font-size: 1rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
+}
+
+/* Status badge */
+.status-badge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.status-pending {
+  background-color: #f59e0b;
+  color: #fff;
+}
+
+.status-accepted {
+  background-color: #10b981;
+  color: #fff;
+}
+
+.status-rejected {
+  background-color: #ef4444;
+  color: #fff;
+}
+
+/* Button styling */
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.action-button {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-accept {
+  background-color: #10b981;
+}
+
+.button-accept:hover {
+  background-color: #059669;
+}
+
+.button-reject {
+  background-color: #ef4444;
+}
+
+.button-reject:hover {
+  background-color: #dc2626;
+}
+
+/* Responsive styles */
+@media (min-width: 768px) {
+  .internship-list-item {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .action-buttons {
+    margin-top: 0;
+  }
+}
+
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
