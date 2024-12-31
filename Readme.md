@@ -1,7 +1,9 @@
 # Intern Management System
 
-## Points to Follow
+OUTPUT:-
+INTERN FORM
+![Screenshot 2024-12-31 131702](https://github.com/user-attachments/assets/52c560bf-cf70-457e-b31e-a04c68f8132a)
 
-1. Use Client Server Architecture with proper naming conventions of client and server or frontend and backend
-2. Never Push node_modules and .env files to github.
-3. Install all dependencies in package.json file using npm install.
+ADMINDASHBOARD
+![Screenshot 2024-12-31 131725](https://github.com/user-attachments/assets/8dc319dc-99b5-48f6-9ffd-c9a20ff3ddb8)
+
