@@ -6,12 +6,12 @@ import AdminDashboard from './components/admindashboard';
 
 const App = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<InternshipForm />} />
+      <Router>
+        <Routes>
+          <Route path="/" element={<InternshipForm />} />
         <Route path="/admin" element={<AdminDashboard />} />
-      </Routes>
-    </Router>
+        </Routes>
+      </Router>
   );
 };
 
