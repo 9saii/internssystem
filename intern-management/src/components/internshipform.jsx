@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios'; 
-
+import axios from 'axios';
 
 const InternshipForm = () => {
   const [formData, setFormData] = useState({
@@ -17,51 +16,63 @@ const InternshipForm = () => {
     e.preventDefault();
     try {
       await axios.post('http://localhost:3000/api/internships/submit', formData);
-      alert('Internship request submitted');
-
+      alert('Internship request submitted successfully!');
+      setFormData({ internName: '', email: '' }); // Clear form after submission
     } catch (error) {
       alert('Error submitting internship request');
-      console.log(error)
+      console.error(error);
     }
   };
 
   return (
-    <div className="max-w-lg p-6 mx-auto mt-10 border border-gray-300 rounded-lg shadow-lg">
-      <h2 className="mb-4 text-2xl font-semibold text-center">Internship Application Form</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label htmlFor="internName" className="block text-gray-700">Intern Name</label>
-          <input
-            type="text"
-            id="internName"
-            name="internName"
-            className="w-full p-3 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            placeholder="Enter your name"
-            value={formData.internName}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="email" className="block text-gray-700">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            className="w-full p-3 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            placeholder="Enter your email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <button
-          type="submit"
-          className="w-full py-3 text-white transition duration-300 bg-indigo-600 rounded-lg hover:bg-indigo-700"
-        >
-          Submit
-        </button>
-      </form>
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-purple-500 to-indigo-600">
+      <div className="relative w-full max-w-md p-8 overflow-hidden transition-all duration-300 transform bg-white shadow-2xl rounded-xl hover:scale-105">
+        {/* Glow effect */}
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-indigo-500 opacity-20 blur-2xl animate-glow"></div>
+        <h2 className="mb-6 text-3xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-700">
+          Internship Application
+        </h2>
+        <form onSubmit={handleSubmit} className="relative z-10 space-y-6">
+          <div>
+            <label htmlFor="internName" className="block text-sm font-medium text-gray-700">
+              Intern Name
+            </label>
+            <input
+              type="text"
+              id="internName"
+              name="internName"
+              value={formData.internName}
+              onChange={handleChange}
+              className="block w-full px-4 py-3 mt-1 transition-all duration-300 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+              placeholder="Enter your name"
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className="block w-full px-4 py-3 mt-1 transition-all duration-300 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+              placeholder="Enter your email"
+              required
+            />
+          </div>
+          <div>
+            <button
+              type="submit"
+              className="w-full px-4 py-3 font-semibold text-white transition-all duration-300 rounded-lg shadow-lg bg-gradient-to-r from-purple-600 to-indigo-700 hover:shadow-xl hover:from-purple-700 hover:to-indigo-800 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+            >
+              Submit Application
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
