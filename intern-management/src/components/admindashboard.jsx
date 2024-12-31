@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+
 const AdminDashboard = () => {
   const [internships, setInternships] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -10,7 +11,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchInternships = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/internships');
+        const response = await axios.get('http://localhost:3000/api/internships');
         setInternships(response.data);
       } catch (err) {
         setError('Error fetching internships');
@@ -25,7 +26,7 @@ const AdminDashboard = () => {
   const handleAction = async (id, status) => {
     try {
       // Update the internship status on the server
-      await axios.patch(`http://localhost:5000/api/internships/${id}`, { status });
+      await axios.patch(`http://localhost:3000/api/internships/${id}`, { status });
       // Optimistically update the local state to reflect the status change immediately
       setInternships(prevInternships =>
         prevInternships.map(intern =>
@@ -47,11 +48,11 @@ const AdminDashboard = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto mt-10 p-6 border border-gray-300 rounded-lg shadow-lg">
-      <h2 className="text-3xl font-semibold text-center mb-6">Admin Dashboard</h2>
+    <div className="max-w-4xl p-6 mx-auto mt-10 border border-gray-300 rounded-lg shadow-lg">
+      <h2 className="mb-6 text-3xl font-semibold text-center">Admin Dashboard</h2>
       <ul className="space-y-4">
         {internships.map((intern) => (
-          <li key={intern._id} className="flex justify-between items-center p-4 border-b border-gray-200">
+          <li key={intern._id} className="flex items-center justify-between p-4 border-b border-gray-200">
             <div>
               <h3 className="text-xl font-semibold">{intern.internName}</h3>
               <p className="text-gray-600">{intern.email}</p>
@@ -70,13 +71,13 @@ const AdminDashboard = () => {
             <div className="space-x-2">
               <button
                 onClick={() => handleAction(intern._id, 'accepted')}
-                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+                className="px-4 py-2 text-white bg-green-600 rounded-lg hover:bg-green-700"
               >
                 Accept
               </button>
               <button
                 onClick={() => handleAction(intern._id, 'rejected')}
-                className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
+                className="px-4 py-2 text-white bg-red-600 rounded-lg hover:bg-red-700"
               >
                 Reject
               </button>
