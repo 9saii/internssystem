@@ -24,10 +24,11 @@ const AdminDashboard = () => {
   }, []);
 
   const handleAction = async (id, status) => {
+    const message = prompt(`Enter a message for the intern (${status}):`);
+    if (message === null) return; // User canceled the prompt
+  
     try {
-      // Update the internship status on the server
-      await axios.patch(`http://localhost:3000/api/internships/${id}`, { status });
-      // Optimistically update the local state to reflect the status change immediately
+      await axios.patch(`http://localhost:3000/api/internships/${id}`, { status, message });
       setInternships(prevInternships =>
         prevInternships.map(intern =>
           intern._id === id ? { ...intern, status } : intern
