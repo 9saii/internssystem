@@ -1,26 +1,35 @@
+require('dotenv').config();  // Load environment variables
 const express = require('express');
-const cors = require('cors');  // Import the cors module
+const cors = require('cors');
 const mongoose = require('mongoose');
+const { authMiddleware, adminMiddleware } = require('./middleware/authmiddleware');
 const app = express();
 
-// Enable CORS for all routes
-app.use(cors());  // This will allow all origins, including 'http://localhost:5173'
+// Middleware Setup
+app.use(cors());  // Enable CORS for all routes (should be placed before routes)
+app.use(express.json());  // Parse incoming JSON requests
 
-// Other middleware
-app.use(express.json());
-mongoose.connect('mongodb+srv://surugowtham27:6281957827@cluster0.wucyb.mongodb.net/backend')
-.then(() => {
-  console.log("MongoDb connected")
-})
-.catch((err) => {
-  console.error("Error connecting to MongoDB", err)
-})
-
-// Your routes (as before)
+// Use routes
+app.use('/api/admin', authMiddleware, adminMiddleware, require('./routes/authroutes'));
 app.use('/api/internships', require('./routes/internshiproutes'));
 
-// Set up the server
-const port = 3000;
+// Database Connection (Using environment variables)
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log("MongoDB connected");
+  })
+  .catch((err) => {
+    console.error("Error connecting to MongoDB", err);
+  });
+
+// Error Handling Middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ message: 'Something went wrong!', error: err.message });
+});
+
+// Server Setup
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });

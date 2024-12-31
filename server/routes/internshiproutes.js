@@ -69,4 +69,14 @@ router.patch('/:id', async (req, res) => {
   }
 });
 
+// Delete an internship record
+router.delete('/:id', async (req, res) => {
+  try {
+    await Internship.findByIdAndDelete(req.params.id);
+    res.status(200).json({ message: 'Internship record deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 module.exports = router;

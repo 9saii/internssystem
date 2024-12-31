@@ -5,6 +5,9 @@ const InternshipForm = () => {
   const [formData, setFormData] = useState({
     internName: '',
     email: '',
+    position: '',
+    phoneNumber: '',
+    address: '',
   });
 
   const handleChange = (e) => {
@@ -17,7 +20,13 @@ const InternshipForm = () => {
     try {
       await axios.post('http://localhost:3000/api/internships/submit', formData);
       alert('Internship request submitted successfully!');
-      setFormData({ internName: '', email: '' }); // Clear form after submission
+      setFormData({
+        internName: '',
+        email: '',
+        position: '',
+        phoneNumber: '',
+        address: '',
+      }); // Reset the entire form after submission
     } catch (error) {
       alert('Error submitting internship request');
       console.error(error);
@@ -63,6 +72,52 @@ const InternshipForm = () => {
               required
             />
           </div>
+          <div>
+            <label htmlFor="position" className="block text-sm font-medium text-gray-700">
+              Position
+            </label>
+            <input
+              type="text"
+              id="position"
+              name="position"
+              value={formData.position}
+              onChange={handleChange}
+              className="block w-full px-4 py-3 mt-1 transition-all duration-300 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+              placeholder="Enter the position you're applying for"
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700">
+              Phone Number
+            </label>
+            <input
+              type="tel"
+              id="phoneNumber"
+              name="phoneNumber"
+              value={formData.phoneNumber}
+              onChange={handleChange}
+              className="block w-full px-4 py-3 mt-1 transition-all duration-300 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+              placeholder="Enter your phone number"
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="address" className="block text-sm font-medium text-gray-700">
+              Address
+            </label>
+            <textarea
+              id="address"
+              name="address"
+              value={formData.address}
+              onChange={handleChange}
+              className="block w-full px-4 py-3 mt-1 transition-all duration-300 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+              placeholder="Enter your address"
+              required
+            />
+          </div>
+
+          {/* Submit button */}
           <div>
             <button
               type="submit"

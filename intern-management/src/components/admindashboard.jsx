@@ -6,6 +6,20 @@ const AdminDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Utility function to handle the status class
+  const getStatusClass = (status) => {
+    switch (status) {
+      case 'pending':
+        return 'bg-yellow-100 text-yellow-800';
+      case 'accepted':
+        return 'bg-green-100 text-green-800';
+      case 'rejected':
+        return 'bg-red-100 text-red-800';
+      default:
+        return 'bg-gray-100 text-gray-800';
+    }
+  };
+
   useEffect(() => {
     const fetchInternships = async () => {
       try {
@@ -27,13 +41,22 @@ const AdminDashboard = () => {
 
     try {
       await axios.patch(`http://localhost:3000/api/internships/${id}`, { status, message });
-      setInternships(prevInternships =>
-        prevInternships.map(intern =>
-          intern._id === id ? { ...intern, status } : intern
+      setInternships((prevInternships) =>
+        prevInternships.map((intern) =>
+          intern._id === id ? { ...intern, status, message } : intern
         )
       );
     } catch (err) {
       setError('Error updating internship status');
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:3000/api/internships/${id}`);
+      setInternships((prevInternships) => prevInternships.filter((intern) => intern._id !== id));
+    } catch (err) {
+      setError('Error deleting internship record');
     }
   };
 
@@ -72,13 +95,9 @@ const AdminDashboard = () => {
                 <h3 className="text-xl font-semibold text-indigo-900">{intern.internName}</h3>
                 <p className="text-gray-600">{intern.email}</p>
                 <div
-                  className={`inline-block px-4 py-2 rounded-full text-sm font-semibold ${
-                    intern.status === 'pending'
-                      ? 'bg-yellow-100 text-yellow-800'
-                      : intern.status === 'accepted'
-                      ? 'bg-green-100 text-green-800'
-                      : 'bg-red-100 text-red-800'
-                  }`}
+                  className={`inline-block px-4 py-2 rounded-full text-sm font-semibold ${getStatusClass(
+                    intern.status
+                  )}`}
                 >
                   {intern.status}
                 </div>
@@ -98,6 +117,12 @@ const AdminDashboard = () => {
                     </button>
                   </div>
                 )}
+                <button
+                  onClick={() => handleDelete(intern._id)}
+                  className="w-full px-4 py-2 mt-4 text-white transition-colors duration-300 bg-gray-600 border border-gray-600 rounded-lg hover:bg-gray-700 hover:border-gray-700"
+                >
+                  Delete
+                </button>
               </div>
             </div>
           ))}
